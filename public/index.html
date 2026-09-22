@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ru" data-theme="dark">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111218"><meta name="description" content="Алина — ваш личный AI-помощник">
+  <title>Алина · Личный помощник</title><link rel="stylesheet" href="/style.css"><script src="/app.js" defer></script>
+</head>
+<body>
+  <section id="login" class="login-screen">
+    <button class="theme-switch floating" aria-label="Переключить тему">◐</button>
+    <form id="login-form" class="login-card">
+      <div class="orb small" aria-hidden="true"></div><p class="eyebrow">ВАШЕ ЛИЧНОЕ ПРОСТРАНСТВО</p>
+      <h1>Привет. Я Алина.</h1><p class="muted">Давайте начнём с того, что важно вам.</p>
+      <label for="password">Пароль</label><input id="password" type="password" autocomplete="current-password" required maxlength="512" placeholder="Введите ваш пароль">
+      <button class="primary" id="login-submit">Войти в Алину <span>↗</span></button>
+      <p id="login-error" role="alert"></p><p class="fine">Личный AI-помощник · Версия 0.1</p>
+    </form>
+  </section>
+  <div id="app" class="shell" hidden>
+    <aside id="sidebar">
+      <a class="brand" href="/" aria-label="Алина — главная"><span class="brand-symbol">а</span><span>алина<span class="brand-dot">.</span></span></a>
+      <p class="sidebar-label">ЛИЧНЫЙ ПОМОЩНИК</p>
+      <button id="new-chat" class="new-chat"><span>＋</span> Новый разговор</button>
+      <p class="section-label">РАЗГОВОРЫ</p><nav id="chats" aria-label="История разговоров"></nav>
+      <div class="sidebar-bottom">
+        <button id="memory-open" class="nav-button">◇ <span>Память Алины</span><span>↗</span></button>
+        <div class="quota"><div><span>Квота AI</span><strong id="quota-number">—</strong></div><progress id="quota-progress" value="0" max="30"></progress><p>Внутренний счётчик, не сумма списания</p></div>
+        <div class="profile"><span class="avatar">Я</span><div><strong>Личное пространство</strong><small>Только для вас</small></div><button id="logout" aria-label="Выйти" title="Выйти">↪</button></div>
+      </div>
+    </aside>
+    <main>
+      <header><div class="header-left"><button id="menu" aria-label="Открыть меню">☰</button><strong id="chat-title">Новый разговор</strong><span class="version">0.1</span></div><div class="header-right"><span id="connection" class="status">Проверяем подключение</span><button class="theme-switch" aria-label="Переключить тему">◐</button></div></header>
+      <div id="setup-note" class="notice" hidden>Для ответов и голоса добавьте API-ключ OpenAI в настройках сервера.</div>
+      <section id="conversation" aria-label="Переписка">
+        <div id="welcome">
+          <div class="orb" aria-hidden="true"><span></span></div><p class="eyebrow">МЫСЛИТЬ ЯСНЕЕ. УСПЕВАТЬ БОЛЬШЕ.</p>
+          <h1>С чего начнём?</h1><p class="welcome-sub">Я помогу разобраться в идеях, найти нужные слова<br>и составить план. Просто расскажите, что у вас на уме.</p>
+          <div class="suggestions">
+            <button data-prompt="Помоги составить план на сегодня. Сначала спроси о моих главных задачах."><span>↗</span><strong>Спланировать день</strong><small>Расставим приоритеты вместе</small></button>
+            <button data-prompt="Помоги написать рабочее сообщение. Уточни, кому и о чём я хочу написать."><span>✎</span><strong>Подобрать слова</strong><small>Сообщение, письмо или отчёт</small></button>
+            <button data-prompt="Хочу обсудить идею. Задавай вопросы и помоги превратить её в конкретный план."><span>✧</span><strong>Развить идею</strong><small>От первой мысли к следующему шагу</small></button>
+          </div>
+        </div>
+        <div id="messages" aria-live="polite" aria-relevant="additions"></div>
+      </section>
+      <div class="composer-area"><p id="error" role="alert" hidden></p><p id="activity" role="status"></p><audio id="audio-player" controls hidden aria-label="Голосовой ответ Алины"></audio>
+        <form id="chat-form"><label for="message" class="sr-only">Сообщение Алине</label><textarea id="message" maxlength="4000" rows="2" placeholder="Напишите Алине…"></textarea><div class="composer-tools"><span id="input-hint">Enter — отправить · Shift + Enter — новая строка</span><div><button id="mic" type="button" aria-label="Записать голос" title="Запись до 60 секунд">♩</button><button id="send" class="send" aria-label="Отправить сообщение">↑</button></div></div></form>
+        <p class="disclaimer">Алина может ошибаться. Голос создан AI. Микрофон включается только по кнопке.</p>
+      </div>
+    </main>
+  </div>
+  <dialog id="memory-dialog"><form id="memory-form"><div class="dialog-title"><h2>Память Алины</h2><button type="button" id="memory-close" aria-label="Закрыть">×</button></div><p class="muted">Добавьте то, что Алине полезно учитывать в каждом разговоре: как к вам обращаться, предпочтения и цели.</p><label for="memory">Что помнить о вас</label><textarea id="memory" rows="8" maxlength="4000" placeholder="Например: обращайся ко мне на «ты». Отвечай кратко и по делу."></textarea><p class="fine">Сохраняется только то, что вы укажете здесь. Эти сведения и контекст разговора передаются OpenAI для ответа.</p><button class="primary">Сохранить память</button><p id="memory-status" role="status"></p></form></dialog>
+</body></html>
