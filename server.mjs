@@ -181,7 +181,7 @@ export function createApp(config = {}) {
         if (!Number.isSafeInteger(messageId)) throw fail(400, 'Некорректное сообщение.');
         const message = db.prepare("SELECT content FROM messages WHERE id=? AND role='assistant'").get(messageId);
         if (!message) throw fail(404, 'Ответ не найден.');
-        const audio = await ai(10, async () => (await upstream('audio/speech', { model: 'gpt-4o-mini-tts', voice: 'coral', input: message.content.slice(0,1500), instructions: 'Speak in Russian with a soft, warm, lively feminine voice. Sound like a friendly, attentive conversational companion: use gently expressive intonation, a subtle smile in the voice, natural conversational rhythm, and short pauses at meaningful phrases. Keep a comfortable, moderately paced delivery with clear pronunciation. Be engaged and lightly upbeat without sounding theatrical, overly excited, breathy, or whispery.', response_format: 'mp3' })).arrayBuffer());
+        const audio = await ai(10, async () => (await upstream('audio/speech', { model: 'gpt-4o-mini-tts', voice: 'shimmer', input: message.content.slice(0,1500), instructions: 'Speak in Russian with a soft, warm, lively feminine voice. Sound like a friendly, attentive conversational companion: use gently expressive intonation, a subtle smile in the voice, natural conversational rhythm, and short pauses at meaningful phrases. Keep a comfortable, moderately paced delivery with clear pronunciation. Be engaged and lightly upbeat without sounding theatrical, overly excited, breathy, or whispery.', response_format: 'mp3' })).arrayBuffer());
         res.writeHead(200, { 'Content-Type': 'audio/mpeg' }); return res.end(Buffer.from(audio));
       }
       throw fail(404, 'Не найдено.');
